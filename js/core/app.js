@@ -9,8 +9,9 @@ export default class {
     THREE.Cache.enabled = true;
     window.addEventListener("resize", () => this.resize());
     this.objects = [];
-    this.lastTime = 0;
-    this.timeBetweenFrames = 1000 / 30;
+    this.previousTotalMilliseconds = 0;
+    this.secondsBetweenFrame = 1 / 30;
+    this.millisecondsBetweenFrame = this.secondsBetweenFrame * 1000;
   }
   resize() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -22,15 +23,15 @@ export default class {
     this.objects.map(object => {
       if (object.update) object.update();
     });
-    requestAnimationFrame(time => this.animate(time));
+    requestAnimationFrame(totalMilliseconds => this.animate(totalMilliseconds));
   }
-  animate(time = 0) {
-    const timeBetweenFrames = time - this.lastTime;
-    if (timeBetweenFrames < this.timeBetweenFrames) {
-      requestAnimationFrame(time => this.animate(time));
+  animate(totalMilliseconds) {
+    const msBetweenFrames = totalMilliseconds - this.previousTotalMilliseconds;
+    if (msBetweenFrames < this.msBetweenFrames) {
+      requestAnimationFrame(totalMilliseconds => this.animate(totalMilliseconds));
       return;
     }
-    this.lastTime = time;
+    this.previousTotalMilliseconds = totalMilliseconds;
     this.update();
   }
 }

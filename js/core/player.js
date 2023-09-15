@@ -1,22 +1,13 @@
 import * as THREE from "three";
-import Model from "./model.js";
-import Input from "./player/input.js";
-export default class extends Model {
-  constructor(scene, camera, timeBetweenFrames) {
-    super(scene, camera);
-    this.timeBetweenFrames = timeBetweenFrames;
-    this.input = new Input();
+import character from "./character.js";
+import input from "./player/input.js";
+export default class extends character {
+  constructor(scene, camera, secondsBetweenFrame) {
+    super(scene, camera, secondsBetweenFrame);
+    this.input = new input(this.state);
   }
   animationUpdate() {
-    if (this.input.forward || this.input.backward) this.clipAction("running");
-  }
-  moveUpdate() {
-    let move = 0;
-    if (this.input.forward) move = 1;
-    else if (this.input.backward) move = -1;
-    const speed = 0.01 * this.timeBetweenFrames;
-    const distance = speed * move;
-    this.model.position.z += distance;
+    if (this.state.forward || this.state.backward) this.clipAction("running");
   }
   cameraUpdate() {
     if (this.lastPositionModel != this.model.position) {

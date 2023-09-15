@@ -1,9 +1,9 @@
 import * as THREE from "three";
 import loader from "./loader.js";
 export default class {
-  constructor(model, secondsBeetweenFrames) {
+  constructor(model, secondsBeetweenFrame) {
     this.model = model;
-    this.secondsBeetweenFrames = secondsBeetweenFrames;
+    this.secondsBeetweenFrames = secondsBeetweenFrame;
     this.animations = [];
     this.mixer = new THREE.AnimationMixer(this.model);
   }

@@ -1,9 +1,6 @@
 export default class {
-  constructor() {
-    this.forward = false;
-    this.backward = false;
-    this.turnLeft = false;
-    this.turnRight = false;
+  constructor(state) {
+    this.state = state;
     this.keydown = null;
     this.keyup = null;
     window.addEventListener("keydown", event => this.handleKeydown(event.code));
@@ -12,31 +9,31 @@ export default class {
   handleKeydown(code) {
     this.keydown = code;
     if (this.keydown == "KeyW") {
-      this.forward = true;
+      this.state.forward = true;
     }
     if (this.keydown == "KeyS") {
-      this.backward = true;
+      this.state.backward = true;
     }
     if (this.keydown == "KeyD") {
-      this.turnRight = true;
+      this.state.turnRight = true;
     }
     if (this.keydown == "KeyA") {
-      this.turnLeft = true;
+      this.state.turnLeft = true;
     }
   }
   handleKeyup(code) {
     this.keyup = code;
     if (this.keyup == "KeyW") {
-      this.forward = false;
+      this.state.forward = false;
     }
     if (this.keyup == "KeyS") {
-      this.backward = false;
+      this.state.backward = false;
     }
     if (this.keyup == "KeyD") {
-      this.turnRight = false;
+      this.state.turnRight = false;
     }
     if (this.keyup == "KeyA") {
-      this.turnLeft = false;
+      this.state.turnLeft = false;
     }
   }
 }

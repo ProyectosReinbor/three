@@ -17,7 +17,7 @@ export default class extends App {
 
     this.loadedObjects = 0;
     this.objects.push(new Map(this.scene, this.camera));
-    this.objects.push(new Player(this.scene, this.camera, this.timeBetweenFrames));
+    this.objects.push(new Player(this.scene, this.camera, this.secondsBetweenFrame));
   }
   loadedObject() {
     this.loadedObjects++;
@@ -25,8 +25,8 @@ export default class extends App {
       this.update();
   }
   load() {
-    this.objects.map(object => {
-      object.load(() => this.loadedObject());
-    });
+    this.objects.map(object =>
+      object.load(() => this.loadedObject())
+    );
   }
 }

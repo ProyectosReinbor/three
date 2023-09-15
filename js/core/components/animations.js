@@ -1,11 +1,10 @@
 import * as THREE from "three";
 import loader from "./loader.js";
 export default class {
-  constructor(model, secondsBeetweenFrame) {
+  constructor(model, secondsBetweenFrame) {
     this.model = model;
-    this.secondsBeetweenFrames = secondsBeetweenFrame;
+    this.secondsBetweenFrame = secondsBetweenFrame;
     this.animations = [];
-    this.mixer = new THREE.AnimationMixer(this.model);
   }
   loadAnimation(path, file, callback) {
     loader.loadFBX(
@@ -18,6 +17,8 @@ export default class {
     );
   }
   loadAnimations(path, files, callback) {
+    if (this.mixer == undefined)
+      this.mixer = new THREE.AnimationMixer(this.model.scene);
     let index = 0;
     const next = () => {
       const file = files[index];
@@ -33,12 +34,22 @@ export default class {
     }
     next();
   }
-  clipAction(name) {
-    const animation = this.animations[name];
-    this.animation = this.mixer.clipAction(animation);
+  clipAction(animationName, secondsBetweenFrame) {
+    if (this.animationName == animationName)
+      return;
+    this.animationName = animationName;
+    this.secondsBetweenFrame = secondsBetweenFrame;
+    if (this.previousAnimation) {
+      this.previousAnimation.fadeOut(0.5);
+    }
+    const clip = this.animations[this.animationName];
+    this.animation = this.mixer.clipAction(clip);
+    this.previousAnimation = this.animation;
+    this.animation.enabled = true;
+    this.animation.fadeIn(0.5);
     this.animation.play();
   }
   update() {
-    this.mixer.update(this.secondsBeetweenFrames);
+    this.mixer.update(this.secondsBetweenFrame);
   }
 }

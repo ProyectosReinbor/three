@@ -1,12 +1,14 @@
-import Map from "./core/map.js";
-export default class extends Map {
+import map from "./core/map.js";
+export default class extends map {
   load(callback) {
-    this.loadModelGLTF(
+    this.model.loadModelGLTF(
       'models/floor/',
-      'scene', () => {
+      'scene',
+      () => {
         // this.model.scale.setScalar(0.01);
-        this.scene.add(this.model);
+        this.scene.add(this.model.scene);
         callback();
-      });
+      }
+    );
   }
 }

@@ -1,15 +1,11 @@
 import loader from "./loader.js";
 export default class {
-  constructor(scene, camera) {
-    this.scene = scene;
-    this.camera = camera;
-  }
   loadModelGLTF(path, file, callback) {
     loader.loadGLTF(
       path,
       file,
       gltf => {
-        this.model = gltf.scene;
+        this.scene = gltf.scene;
         callback();
       }
     );
@@ -19,7 +15,7 @@ export default class {
       path,
       file,
       fbx => {
-        this.model = fbx;
+        this.scene = fbx;
         callback();
       }
     );

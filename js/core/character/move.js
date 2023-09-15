@@ -2,7 +2,8 @@ export default class {
   constructor(model, state, secondsBetweenFrame) {
     this.model = model;
     this.state = state;
-    this.speed = 1 * secondsBetweenFrame;
+    this.secondsBetweenFrame = secondsBetweenFrame;
+    this.speed = 1 * this.secondsBetweenFrame;
   }
   update() {
     let move = 0;

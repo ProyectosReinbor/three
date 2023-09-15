@@ -1,18 +1,17 @@
-import Player from "./core/player.js";
-export default class extends Player {
+import player from "./core/player.js";
+export default class extends player {
   load(callback) {
-    this.loadModelFBX(
+    this.model.loadModelFBX(
       'models/player/',
       'scene',
       () => {
-        this.model.scale.setScalar(0.01);
-        this.scene.add(this.model);
-        this.loadAnimations(
+        this.model.scene.scale.setScalar(0.01);
+        this.scene.add(this.model.scene);
+        this.animations.loadAnimations(
           'models/player/animations/',
-          ['idle', 'jumping', 'running'],
+          ['idle', 'jumping', 'running', 'runningBackward'],
           () => {
-            this.clipAction("idle");
-            this.model.position.y = 1;
+            this.model.scene.position.y = 1;
             callback();
           }
         );
@@ -20,9 +19,9 @@ export default class extends Player {
     );
   }
   update() {
-    this.animationUpdate();
-    this.moveUpdate();
-    this.cameraUpdate();
-    this.mixerUpdate(this.timeBetweenFrames);
+    this.animations.update();
+    this.move.update();
+    this.mixerAnimation.update(this.secondsBetweenFrame);
+    this.thirdPersonCamera.update();
   }
 }

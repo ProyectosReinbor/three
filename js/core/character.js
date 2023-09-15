@@ -7,13 +7,9 @@ export default class {
     this.scene = scene;
     this.camera = camera;
     this.secondsBetweenFrame = secondsBetweenFrame;
-    this.model = new model(this.scene, this.camera);
+    this.model = new model();
     this.animations = new animations(this.model, this.secondsBetweenFrame);
     this.state = new state();
     this.move = new move(this.model, this.state, this.secondsBetweenFrame);
-  }
-  update() {
-    this.move.update();
-    this.animations.update();
   }
 }

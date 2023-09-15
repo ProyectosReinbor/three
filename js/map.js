@@ -1,14 +1,12 @@
-import *as THREE from "three";
-import Model from "./model.js";
-export default class extends Model {
-  constructor(scene, camera) {
-    super(scene, camera);
-  }
-  loadModel(path, file, callback) {
-    this.loadModelGLTF(path, file, () => {
-      // this.model.scale.setScalar(0.01);
-      this.scene.add(this.model);
-      callback();
-    });
+import Map from "./core/map.js";
+export default class extends Map {
+  load(callback) {
+    this.loadModelGLTF(
+      'models/floor/',
+      'scene', () => {
+        // this.model.scale.setScalar(0.01);
+        this.scene.add(this.model);
+        callback();
+      });
   }
 }

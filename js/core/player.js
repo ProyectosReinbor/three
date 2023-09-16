@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import character from "./character.js";
 import input from "./player/input.js";
 import mixerAnimation from "./player/mixerAnimations.js";

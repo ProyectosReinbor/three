@@ -3,14 +3,17 @@ export default class {
   constructor() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.renderer = new THREE.WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true
+    });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
-    THREE.Cache.enabled = true;
     window.addEventListener("resize", () => this.resize());
+    THREE.Cache.enabled = true;
     this.objects = [];
     this.previousTotalMilliseconds = 0;
-    this.fps = 30;
+    this.fps = 24;
     this.secondsBetweenFrame = 1 / this.fps;
     this.millisecondsBetweenFrame = this.secondsBetweenFrame * 1000;
   }
@@ -24,12 +27,16 @@ export default class {
     this.objects.map(object => {
       if (object.update) object.update();
     });
-    requestAnimationFrame(totalMilliseconds => this.animate(totalMilliseconds));
+    requestAnimationFrame(
+      totalMilliseconds => this.animate(totalMilliseconds)
+    );
   }
   animate(totalMilliseconds) {
     const millisecondsBetweenFrame = totalMilliseconds - this.previousTotalMilliseconds;
     if (millisecondsBetweenFrame < this.millisecondsBetweenFrame) {
-      requestAnimationFrame(totalMilliseconds => this.animate(totalMilliseconds));
+      requestAnimationFrame(
+        totalMilliseconds => this.animate(totalMilliseconds)
+      );
       return;
     }
     this.previousTotalMilliseconds = totalMilliseconds;

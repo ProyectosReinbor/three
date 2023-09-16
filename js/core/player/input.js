@@ -1,8 +1,6 @@
 export default class {
   constructor(state) {
     this.state = state;
-    this.keydown = null;
-    this.keyup = null;
     window.addEventListener("keydown", event => this.handleKeydown(event.code));
     window.addEventListener("keyup", event => this.handleKeyup(event.code));
   }

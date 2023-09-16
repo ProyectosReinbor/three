@@ -3,7 +3,6 @@ export default class {
   constructor(model, camera) {
     this.model = model;
     this.camera = camera;
-    this.previousScenePosition = null;
   }
   update() {
     const scenePosition = this.model.scene.position;

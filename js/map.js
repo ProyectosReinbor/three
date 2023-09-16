@@ -1,14 +1,13 @@
-import map from "./core/map.js";
-export default class extends map {
-  load(callback) {
-    this.model.loadModelGLTF(
-      'models/floor/',
-      'scene',
-      () => {
-        // this.model.scale.setScalar(0.01);
-        this.scene.add(this.model.scene);
-        callback();
-      }
-    );
+import sandSoil from "./sandSoil.js";
+export default class {
+  constructor(scene) {
+    this.scene = scene;
+    this.sandSoil = new sandSoil(this.scene);
+  }
+  start() {
+    this.sandSoil.start();
+  }
+  load(loadedObject) {
+    this.sandSoil.load(() => loadedObject());
   }
 }

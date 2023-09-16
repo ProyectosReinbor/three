@@ -6,6 +6,9 @@ export default class {
     this.secondsBetweenFrame = secondsBetweenFrame;
     this.animations = [];
   }
+  start() {
+    this.mixer = new THREE.AnimationMixer(this.model.scene);
+  }
   loadAnimation(path, file, callback) {
     loader.loadFBX(
       path,
@@ -13,32 +16,30 @@ export default class {
       fbx => {
         this.animations[file] = fbx.animations[0];
         callback();
-      }
+      },
     );
   }
   loadAnimations(path, files, callback) {
-    if (this.mixer == undefined)
-      this.mixer = new THREE.AnimationMixer(this.model.scene);
     let index = 0;
-    const next = () => {
+    const nextIndex = () => {
+      index++;
+      if (index < files.length) nextAnimation();
+      else callback();
+    }
+    const nextAnimation = () => {
       const file = files[index];
       this.loadAnimation(
         path,
         file,
-        () => {
-          index++;
-          if (index < files.length) next();
-          else callback();
-        }
+        () => nextIndex(),
       )
     }
-    next();
+    nextAnimation();
   }
-  clipAction(animationName, secondsBetweenFrame) {
+  clipAction(animationName) {
     if (this.animationName == animationName)
       return;
     this.animationName = animationName;
-    this.secondsBetweenFrame = secondsBetweenFrame;
     if (this.previousAnimation) {
       this.previousAnimation.fadeOut(0.5);
     }

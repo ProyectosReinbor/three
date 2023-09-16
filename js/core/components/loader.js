@@ -1,5 +1,6 @@
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import * as THREE from "three";
 export default {
   loadGLTF(path, file, callback) {
     const loader = new GLTFLoader();
@@ -7,8 +8,6 @@ export default {
     loader.load(
       `${file}.gltf`,
       gltf => callback(gltf),
-      undefined,
-      error => console.error(error)
     );
   },
   loadFBX(path, file, callback) {
@@ -17,8 +16,17 @@ export default {
     loader.load(
       `${file}.fbx`,
       fbx => callback(fbx),
-      undefined,
-      error => console.error(error)
+    );
+  },
+  loadTexture(path, file, callback) {
+    const loader = new THREE.TextureLoader();
+    loader.setPath(path);
+    loader.load(
+      `${file}.png`,
+      texture => {
+        texture.colorSpace = THREE.SRGBColorSpace;
+        callback(texture);
+      }
     );
   }
 }

@@ -1,10 +1,11 @@
 import player from "./core/player.js";
 export default class extends player {
   start() {
-    this.animations.start();
     this.model.scene.scale.setScalar(0.01);
     this.scene.add(this.model.scene);
     this.model.scene.position.y = 1;
+    this.animations.start();
+    this.thirdPersonCamera.start(this.model.scene);
   }
   load(loadedObject) {
     const animations = () => {

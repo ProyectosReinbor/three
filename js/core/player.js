@@ -7,6 +7,6 @@ export default class extends character {
     super(scene, camera, secondsBetweenFrame);
     this.input = new input(this.state);
     this.mixerAnimation = new mixerAnimation(this.state, this.animations);
-    this.thirdPersonCamera = new thirdPersonCamera(this.model, this.camera);
+    this.thirdPersonCamera = new thirdPersonCamera(this.camera);
   }
 }

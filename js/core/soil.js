@@ -10,7 +10,6 @@ export default class {
     );
   }
   start() {
-    console.log(this.texture);
     this.material = new THREE.MeshBasicMaterial({
       map: this.texture
     });
